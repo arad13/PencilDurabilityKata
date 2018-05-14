@@ -22,25 +22,25 @@ public class PencilTests {
 
     @Test
     public void createAPencilWithADurabilityAndRetrieveThatDurability(){
-        assertEquals(15, pencil.getDurability());
+        assertEquals(15, pencil.getPointDurability());
     }
 
     @Test
     public void writeALowerCaseLetterAndCheckThatDurabilityHasBeenLoweredByOne(){
         pencil.Write(paper, "a");
-        assertEquals(14, pencil.getDurability());
+        assertEquals(14, pencil.getPointDurability());
     }
 
     @Test
     public void writeAnUpperCaseLetterAndCheckThatDurabilityHasBeenLoweredByTwo(){
         pencil.Write(paper, "A");
-        assertEquals(13, pencil.getDurability());
+        assertEquals(13, pencil.getPointDurability());
     }
 
     @Test
     public void writeANewLineCharacterAndCheckThatDurabilityIsUnchanged(){
         pencil.Write(paper, System.getProperty("line.separator"));
-        assertEquals(15, pencil.getDurability());
+        assertEquals(15, pencil.getPointDurability());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class PencilTests {
     public void writeSomeTextSharpenThePencilVerifyThatInitialPointDurabilityIsRestored(){
         pencil.Write(paper, "  Here is some followup text");
         pencil.Sharpen();
-        assertEquals(15, pencil.getDurability());
+        assertEquals(15, pencil.getPointDurability());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class PencilTests {
 
         pencil.Write(paper," Here is some followup text");
         pencil.Sharpen();
-        assertEquals( -8, pencil.getDurability());
+        assertEquals( -8, pencil.getPointDurability());
     }
 
     @Test
@@ -106,12 +106,22 @@ public class PencilTests {
     }
 
     @Test
-    public void givenAPaperWithAWhitespaceBlockAllowAnEditToWriteTextOfSameSizeInTheWhitespace(){
+    public void givenAPaperEraseTextAndAllowAnEditToWriteTextOfSameSizeInTheWhitespace(){
         pencil = new Pencil(200, 20, 10);
         pencil.Write(paper, " And this is some followup this follows this.");
         pencil.Erase(paper, "this");
         pencil.Erase(paper, "this");
-        pencil.Edit(paper, "blah");
+        pencil.Edit(paper, "blah", 53);
         assertEquals("This is some initial text. And this is some followup blah follows     .", paper.getText());
+    }
+
+    @Test
+    public void givenAPaperEraseTextAndAllowAnEditToWriteTextOfGreaterSizeInTheWhitespace(){
+        pencil = new Pencil(200, 20, 10);
+        pencil.Write(paper, " And this is some followup this follows this.");
+        pencil.Erase(paper, "this");
+        pencil.Erase(paper, "this");
+        pencil.Edit(paper, "incredible", 53);
+        assertEquals("This is some initial text. And this is some followup incre@@@l@ws     .", paper.getText());
     }
 }
