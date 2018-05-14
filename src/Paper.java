@@ -8,4 +8,8 @@ class Paper {
     String getText() {
         return text;
     }
+
+    void setText(String textToSet){
+        text = textToSet;
+    }
 }
