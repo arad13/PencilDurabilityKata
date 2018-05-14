@@ -21,4 +21,10 @@ public class PencilTests {
         pencil.Write(paper, "a");
         assertEquals(14, pencil.getDurability());
     }
+
+    @Test
+    public void writeAnUpperCaseLetterAndCheckThatDurabilityHasBeenLoweredByTwo(){
+        pencil.Write(paper, "A");
+        assertEquals(13, pencil.getDurability());
+    }
 }

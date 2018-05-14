@@ -11,6 +11,8 @@ class Pencil {
         for( char c : textToWrite.toCharArray()){
             if( Character.isLowerCase(c))
                 durability --;
+            else if( Character.isUpperCase(c))
+                durability -= 2;
 
             currentPaperText.append(c);
         }
