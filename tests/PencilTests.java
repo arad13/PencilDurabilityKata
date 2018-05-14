@@ -2,12 +2,12 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
 public class PencilTests {
-    private Pencil pencil = new Pencil(15);
+    private Pencil pencil = new Pencil(15, 10);
     private Paper paper = new Paper("This is some initial text.");
 
     @Test
     public void givenAPaperWithInitialTextWriteAdditionalTextOnThePaper() {
-        pencil = new Pencil(200);
+        pencil = new Pencil(200, 20);
         pencil.Write(paper, "  Here is some followup text.");
         assertEquals("This is some initial text.  Here is some followup text.", paper.getText());
     }
@@ -46,5 +46,11 @@ public class PencilTests {
         pencil.Write(paper, "  Here is some followup text");
         pencil.Sharpen();
         assertEquals(15, pencil.getDurability());
+    }
+
+    @Test
+    public void sharpenPencilAndLowerLengthByOne(){
+        pencil.Sharpen();
+        assertEquals(9, pencil.getLength());
     }
 }
