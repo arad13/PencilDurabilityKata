@@ -87,4 +87,14 @@ public class PencilTests {
         pencil.Erase(paper, "this");
         assertEquals("This is some initial text. And this is some followup this follows t   .", paper.getText());
     }
+
+    @Test
+    public void givenAPencilWithEraserDurabilityGreaterThanASingleWordCheckThatEraserDurabilityGetsUpdatedForEachCharacterErased(){
+        pencil = new Pencil(200, 20, 7);
+        pencil.Write(paper, " And this is some followup this follows this.");
+        pencil.Erase(paper, "this");
+        pencil.Erase(paper, "this");
+        assertEquals("This is some initial text. And this is some followup t    follows     .", paper.getText());
+
+    }
 }

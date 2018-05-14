@@ -56,6 +56,8 @@ class Pencil {
         }
         paperText.replace(lastIndex + numberOfCharactersThatCannotBeErased, lastIndex + numberOfCharactersThatCannotBeErased + lengthOfCharactersToBeErased, createSpaceString(lengthOfCharactersToBeErased));
 
+        eraserDurability -= lengthOfCharactersToBeErased;
+
         paper.setText(paperText.toString());
     }
 
