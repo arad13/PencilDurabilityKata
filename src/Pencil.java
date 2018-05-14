@@ -2,10 +2,12 @@ class Pencil {
     private int durability;
     private final int initialDurability;
     private int length;
+    private int eraserDurability;
 
-    Pencil(int newPencilDurability, int newPencilLength){
+    Pencil(int newPencilDurability, int newPencilLength, int newPencilEraserDurability){
         initialDurability = durability = newPencilDurability;
         length = newPencilLength;
+        eraserDurability = newPencilEraserDurability;
     }
 
     void Write(Paper paper, String textToWrite){
@@ -45,7 +47,14 @@ class Pencil {
         StringBuilder paperText = new StringBuilder(paper.getText());
 
         int lastIndex = paperText.lastIndexOf(textToErase);
-        paperText.replace(lastIndex, lastIndex + textToErase.length(), createSpaceString(textToErase.length()));
+        int numberOfCharactersThatCannotBeErased = 0;
+        int lengthOfCharactersToBeErased = textToErase.length();
+
+        if( eraserDurability < textToErase.length()){
+            numberOfCharactersThatCannotBeErased = textToErase.length() - eraserDurability;
+            lengthOfCharactersToBeErased = eraserDurability;
+        }
+        paperText.replace(lastIndex + numberOfCharactersThatCannotBeErased, lastIndex + numberOfCharactersThatCannotBeErased + lengthOfCharactersToBeErased, createSpaceString(lengthOfCharactersToBeErased));
 
         paper.setText(paperText.toString());
     }
