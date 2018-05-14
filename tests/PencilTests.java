@@ -53,4 +53,14 @@ public class PencilTests {
         pencil.Sharpen();
         assertEquals(9, pencil.getLength());
     }
+
+    @Test
+    public void sharpenPencilMultipleTimesWhenLengthIsZeroDurabilityIsNoLongerRestored(){
+        for( int i = 0; i < 10; i ++ )
+            pencil.Sharpen();
+
+        pencil.Write(paper," Here is some followup text");
+        pencil.Sharpen();
+        assertEquals( -8, pencil.getDurability());
+    }
 }

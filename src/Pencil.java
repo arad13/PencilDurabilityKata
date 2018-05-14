@@ -35,7 +35,9 @@ class Pencil {
     }
 
     void Sharpen(){
-        durability = initialDurability;
-        length --;
+        if( length > 0 ) {
+            durability = initialDurability;
+            length--;
+        }
     }
 }
