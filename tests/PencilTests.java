@@ -36,8 +36,15 @@ public class PencilTests {
     }
 
     @Test
-    public void writeAWordAndVerifyThatOnceDurabilityIsZeroNewCharactersAreNotWritten(){
+    public void writeSomeTextAndVerifyThatOnceDurabilityIsZeroNewCharactersAreNotWritten(){
         pencil.Write(paper, "  Here is some followup text");
         assertEquals(paper.getText(), "This is some initial text.  Here is some foll         ");
+    }
+
+    @Test
+    public void writeSomeTextSharpenThePencilVerifyThatInitialPointDurabilityIsRestored(){
+        pencil.Write(paper, "  Here is some followup text");
+        pencil.Sharpen();
+        assertEquals(15, pencil.getDurability());
     }
 }

@@ -1,8 +1,9 @@
 class Pencil {
     private int durability;
+    private final int initialDurability;
 
     Pencil(int newPencilDurability){
-        durability = newPencilDurability;
+        initialDurability = durability = newPencilDurability;
     }
 
     void Write(Paper paper, String textToWrite){
@@ -25,5 +26,9 @@ class Pencil {
 
     int getDurability(){
         return durability;
+    }
+
+    void Sharpen(){
+        durability = initialDurability;
     }
 }
