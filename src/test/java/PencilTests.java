@@ -8,6 +8,7 @@ public class PencilTests {
     private Pencil durablePencil;
     private Paper paper;
 
+
     @Before
     public void initialize() {
         standardPencil = new Pencil(15, 10, 10);
