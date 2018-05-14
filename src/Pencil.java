@@ -42,9 +42,12 @@ class Pencil {
     }
 
     void Erase(Paper paper, String textToErase) {
-        String paperText = paper.getText();
-        paperText = paperText.replace(textToErase, createSpaceString(textToErase.length()));
-        paper.setText(paperText);
+        StringBuilder paperText = new StringBuilder(paper.getText());
+
+        int lastIndex = paperText.lastIndexOf(textToErase);
+        paperText.replace(lastIndex, lastIndex + textToErase.length(), createSpaceString(textToErase.length()));
+
+        paper.setText(paperText.toString());
     }
 
     private String createSpaceString(int length){

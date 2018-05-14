@@ -69,4 +69,14 @@ public class PencilTests {
         pencil.Erase(paper,"initial");
         assertEquals("This is some         text.", paper.getText());
     }
+
+    @Test
+    public void givenAPaperWithTheSameWordMultipleTimesEraseTheLatestOccurrenceEachTime(){
+        pencil = new Pencil( 200, 20);
+        pencil.Write(paper, " And this is some followup this follows this.");
+        pencil.Erase(paper, "this");
+        assertEquals("This is some initial text. And this is some followup this follows     .", paper.getText());
+        pencil.Erase(paper, "this");
+        assertEquals("This is some initial text. And this is some followup      follows     .", paper.getText());
+    }
 }
