@@ -7,6 +7,7 @@ public class PencilTests {
 
     @Test
     public void givenAPaperWithInitialTextWriteAdditionalTextOnThePaper() {
+        pencil = new Pencil(200);
         pencil.Write(paper, "  Here is some followup text.");
         assertEquals("This is some initial text.  Here is some followup text.", paper.getText());
     }
@@ -32,5 +33,11 @@ public class PencilTests {
     public void writeANewLineCharacterAndCheckThatDurabilityIsUnchanged(){
         pencil.Write(paper, System.getProperty("line.separator"));
         assertEquals(15, pencil.getDurability());
+    }
+
+    @Test
+    public void writeAWordAndVerifyThatOnceDurabilityIsZeroNewCharactersAreNotWritten(){
+        pencil.Write(paper, "  Here is some followup text");
+        assertEquals(paper.getText(), "This is some initial text.  Here is some foll         ");
     }
 }

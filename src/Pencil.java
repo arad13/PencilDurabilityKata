@@ -9,12 +9,15 @@ class Pencil {
         StringBuilder currentPaperText = new StringBuilder(paper.getText());
 
         for( char c : textToWrite.toCharArray()){
+            if( durability > 0 )
+                currentPaperText.append(c);
+            else
+                currentPaperText.append(" ");
+
             if( Character.isLowerCase(c))
                 durability --;
             else if( Character.isUpperCase(c))
                 durability -= 2;
-
-            currentPaperText.append(c);
         }
 
         paper.setText(currentPaperText.toString());
