@@ -1,9 +1,17 @@
+import org.junit.Before;
 import org.junit.Test;
+
 import static junit.framework.TestCase.assertEquals;
 
 public class PencilTests {
-    private Pencil pencil = new Pencil(15, 10, 10);
-    private Paper paper = new Paper("This is some initial text.");
+    private Pencil pencil;
+    private Paper paper;
+
+    @Before
+    public void initialize() {
+        pencil = new Pencil(15, 10, 10);
+        paper = new Paper("This is some initial text.");
+    }
 
     @Test
     public void givenAPaperWithInitialTextWriteAdditionalTextOnThePaper() {
@@ -95,6 +103,15 @@ public class PencilTests {
         pencil.Erase(paper, "this");
         pencil.Erase(paper, "this");
         assertEquals("This is some initial text. And this is some followup t    follows     .", paper.getText());
+    }
 
+    @Test
+    public void givenAPaperWithAWhitespaceBlockAllowAnEditToWriteTextOfSameSizeInTheWhitespace(){
+        pencil = new Pencil(200, 20, 10);
+        pencil.Write(paper, " And this is some followup this follows this.");
+        pencil.Erase(paper, "this");
+        pencil.Erase(paper, "this");
+        pencil.Edit(paper, "blah");
+        assertEquals("This is some initial text. And this is some followup blah follows     .", paper.getText());
     }
 }
