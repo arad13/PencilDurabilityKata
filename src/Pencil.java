@@ -40,4 +40,18 @@ class Pencil {
             length--;
         }
     }
+
+    void Erase(Paper paper, String textToErase) {
+        String paperText = paper.getText();
+        paperText = paperText.replace(textToErase, createSpaceString(textToErase.length()));
+        paper.setText(paperText);
+    }
+
+    private String createSpaceString(int length){
+        StringBuilder strReturn = new StringBuilder();
+        for(int i = 0; i < length; i++ ){
+            strReturn.append(" ");
+        }
+        return strReturn.toString();
+    }
 }

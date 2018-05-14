@@ -63,4 +63,10 @@ public class PencilTests {
         pencil.Sharpen();
         assertEquals( -8, pencil.getDurability());
     }
+
+    @Test
+    public void eraseAStringFromThePaper(){
+        pencil.Erase(paper,"initial");
+        assertEquals("This is some         text.", paper.getText());
+    }
 }
