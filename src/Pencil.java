@@ -1,12 +1,11 @@
 class Pencil {
-    private int durability;
-    private final int initialDurability;
+    private int pointDurability;
+    private final int initialPointDurability;
     private int length;
     private int eraserDurability;
-    private int lastErasedTextIndex;
 
-    Pencil(int newPencilDurability, int newPencilLength, int newPencilEraserDurability){
-        initialDurability = durability = newPencilDurability;
+    Pencil(int newPencilPointDurability, int newPencilLength, int newPencilEraserDurability){
+        initialPointDurability = pointDurability = newPencilPointDurability;
         length = newPencilLength;
         eraserDurability = newPencilEraserDurability;
     }
@@ -15,22 +14,19 @@ class Pencil {
         StringBuilder currentPaperText = new StringBuilder(paper.getText());
 
         for( char c : textToWrite.toCharArray()){
-            if( durability > 0 )
+            if( pointDurability > 0 )
                 currentPaperText.append(c);
             else
                 currentPaperText.append(" ");
 
-            if( Character.isLowerCase(c))
-                durability --;
-            else if( Character.isUpperCase(c))
-                durability -= 2;
+            updatePointDurability(c);
         }
 
         paper.setText(currentPaperText.toString());
     }
 
-    int getDurability(){
-        return durability;
+    int getPointDurability(){
+        return pointDurability;
     }
 
     int getLength(){
@@ -39,7 +35,7 @@ class Pencil {
 
     void Sharpen(){
         if( length > 0 ) {
-            durability = initialDurability;
+            pointDurability = initialPointDurability;
             length--;
         }
     }
@@ -60,31 +56,33 @@ class Pencil {
         }
         paperText.replace(lastIndex + numberOfCharactersThatCannotBeErased, lastIndex + numberOfCharactersThatCannotBeErased + lengthOfCharactersToBeErased, createSpaceString(lengthOfCharactersToBeErased));
 
-        lastErasedTextIndex = lastIndex + numberOfCharactersThatCannotBeErased;
-
         eraserDurability -= lengthOfCharactersToBeErased;
 
         paper.setText(paperText.toString());
     }
 
-    void Edit(Paper paper, String textToEditIn){
+    void Edit(Paper paper, String textToEditIn, int indexToBeginEditingInText){
         StringBuilder paperText = new StringBuilder(paper.getText());
 
         for( int i = 0; i < textToEditIn.length(); i++ ){
             char characterToInsert = textToEditIn.charAt(i);
 
-            if( Character.isLowerCase(characterToInsert) )
-                durability --;
-            else if( Character.isUpperCase(characterToInsert))
-                durability -= 2;
+            updatePointDurability(characterToInsert);
 
-            if( lastErasedTextIndex + i >= paperText.length() )
+            if( indexToBeginEditingInText + i >= paperText.length() )
                 paperText.append(characterToInsert);
             else
-                paperText.replace(lastErasedTextIndex+i, lastErasedTextIndex+i+1, tryAndReplaceCharacter(paperText.charAt(lastErasedTextIndex+i), characterToInsert));
+                paperText.replace(indexToBeginEditingInText+i, indexToBeginEditingInText+i+1, tryAndReplaceCharacter(paperText.charAt(indexToBeginEditingInText+i), characterToInsert));
         }
 
         paper.setText(paperText.toString());
+    }
+
+    private void updatePointDurability(char characterToWrite) {
+        if( Character.isLowerCase(characterToWrite))
+            pointDurability --;
+        else if( Character.isUpperCase(characterToWrite))
+            pointDurability -= 2;
     }
 
     private String createSpaceString(int length){
