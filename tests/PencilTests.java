@@ -15,4 +15,10 @@ public class PencilTests {
     public void createAPencilWithADurabilityAndRetrieveThatDurability(){
         assertEquals(15, pencil.getDurability());
     }
+
+    @Test
+    public void writeALowerCaseLetterAndCheckThatDurabilityHasBeenLoweredByOne(){
+        pencil.Write(paper, "a");
+        assertEquals(14, pencil.getDurability());
+    }
 }

@@ -6,7 +6,16 @@ class Pencil {
     }
 
     void Write(Paper paper, String textToWrite){
-        paper.setText(paper.getText() + textToWrite);
+        StringBuilder currentPaperText = new StringBuilder(paper.getText());
+
+        for( char c : textToWrite.toCharArray()){
+            if( Character.isLowerCase(c))
+                durability --;
+
+            currentPaperText.append(c);
+        }
+
+        paper.setText(currentPaperText.toString());
     }
 
     int getDurability(){
