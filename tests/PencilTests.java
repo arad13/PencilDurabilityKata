@@ -27,4 +27,10 @@ public class PencilTests {
         pencil.Write(paper, "A");
         assertEquals(13, pencil.getDurability());
     }
+
+    @Test
+    public void writeANewLineCharacterAndCheckThatDurabilityIsUnchanged(){
+        pencil.Write(paper, System.getProperty("line.separator"));
+        assertEquals(15, pencil.getDurability());
+    }
 }
